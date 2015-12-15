@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="rentaApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Rentas</title>
+    <link rel="stylesheet" href="assets/vendor/css/materialize.min.css">
+    <script src="assets/vendor/js/angular.min.js"></script>
+    <script src="assets/vendor/js/angular-route.min.js"></script>
+    <script src="assets/vendor/js/angular-cookie.min.js"></script>
+    <script src="assets/vendor/js/ng-token-auth.min.js"></script>
+    <script src="main.js"></script>
+    <script src="assets/vendor/js/jquery-2.1.4.min.js"></script>
+    <script src="assets/vendor/js/materialize.min.js"></script>
+
+</head>
+<body ng-controller="mainController">
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Rent'App</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#/">Home</a></li>
+            <li><a href="#/login">Login</a></li>
+            <li><a href="#/dashboard">DashBoard</a></li>
+            <li><a href="#/signUp">Registrarse</a></li>
+            <li><a href="#/moves/new">Nuevo Movimiento</a></li>
+            <button class="btn" ng-click='signOut()'>Sign out</button>
+          </ul>
+        </div>
+    </nav>
+
+    <div id="main" class="row">
+        <div ng-view>
+            
+        </div>
+    </div>
+
+</body>
+</html>

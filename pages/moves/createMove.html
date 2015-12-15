@@ -1,0 +1,18 @@
+<div class="col l6 offset-l3 push-l3 m8 push-m2 s12">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Agregar Movimiento</span>
+            <form id="newMove" ng-submit="submitNewMove(newMove)" role="form" ng-init="newMove = {}">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" ng-model="newMove.name" required="required"/>
+                <label for="description">Descripcion</label>
+                <input type="text" name="description" ng-model="newMove.description" required="required"/>
+                <label for="amount">Monto</label>
+                <input type="number" name="amount" ng-model="newMove.amount" required="required"/>
+            </form>
+        </div>
+        <div class="card-action">
+            <button type="submit" class="btn" form="newMove" ng-click="createMove()">Guardar</button>
+        </div>
+    </div>
+</div>
