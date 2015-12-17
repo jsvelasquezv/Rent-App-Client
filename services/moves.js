@@ -7,13 +7,12 @@ moveService.service('Move',function ($http) {
     }
 
     //Create a new move for the user logged
-    this.createMove = function (name, value, kind, acquisition_date, user_id) {
+    this.createMove = function (name, description, amount, user_id) {
         return $http.post('http://localhost:3000/api/moves',{
-            name             : name,
-            value            : value,
-            kind             : kind,
-            acquisition_date : acquisition_date,
-            user_id          : user_id
+            name        : name,
+            description : description,
+            amount      : amount,
+            user_id     : user_id
         })
     }
 });

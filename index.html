@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Rentas</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="assets/vendor/css/materialize.min.css">
+      
     <script src="assets/vendor/js/angular.min.js"></script>
     <script src="assets/vendor/js/angular-route.min.js"></script>
     <script src="assets/vendor/js/angular-cookie.min.js"></script>
     <script src="assets/vendor/js/ng-token-auth.min.js"></script>
+    <script src="assets/vendor/js/angular-datepicker.js"></script>
     <script src="main.js"></script>
     <script src="services/moves.js"></script>
+    <script src="services/patrimonies.js"></script>
+    
     <script src="assets/vendor/js/jquery-2.1.4.min.js"></script>
     <script src="assets/vendor/js/materialize.min.js"></script>
+    <script src="assets/js/init.js"></script>
 
 </head>
 <body ng-controller="mainController">
-    <nav>
+    <nav class="blue">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">Rent'App</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#/">Home</a></li>
+            <a href="#" class="brand-logo center">Rent'App</a>
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+        </div>
+        <ul id="slide-out" class="side-nav">
             <li><a href="#/login">Login</a></li>
             <li><a href="#/dashboard">DashBoard</a></li>
             <li><a href="#/signUp">Registrarse</a></li>
-            <li><a href="#/moves/new">Nuevo Movimiento</a></li>
+            <li><a href="#/newMove">Nuevo Movimiento</a></li>
+            <li><a href="#/newPatrimony">Nuevo Patrimonio</a></li>
             <button class="btn" ng-click='signOut()'>Sign out</button>
-          </ul>
-        </div>
+        </ul>
     </nav>
-
+        
     <div id="main" class="row">
         <div ng-view>
             
         </div>
     </div>
+
 </body>
 </html>

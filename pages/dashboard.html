@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col l6 m6 s12">
+        <h3>Movimientos</h3>
+        <div class="card-panel hoverable" ng-repeat="move in moves">
+            <h5 class="card-title blue-text"> {{ move.name }} </h5>
+            <p> {{ move.description }} </p>
+            <h6><span class="orange-text">Monto: </span> {{ move.amount }} </h6>    
+        </div>
+    </div>
+
+    <div class="col l6 m6 s12">
+        <h3>Patrimonios</h3>
+        <div class="card-panel hoverable" ng-repeat="patrimony in patrimonies">
+            <h5 class="card-title blue-text"> {{ patrimony.name }} </h5>
+            <div class="row">
+                <div class="col l4 m4 s4">
+                    <span class="orange-text">Monto: </span> {{ patrimony.value }}
+                </div>
+                <div class="col l4 m4 s4">
+                    <span class="orange-text">Fecha de adquisicion: </span> {{ patrimony.acquisition_date}}
+                </div>
+                <div class="col l4 m4 s4">
+                    <span class="orange-text">Tipo: </span> {{ patrimony.kind }}
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+

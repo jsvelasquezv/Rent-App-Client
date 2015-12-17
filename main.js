@@ -1,13 +1,15 @@
-var rentaApp = angular.module('rentaApp', ['ngRoute', 'ipCookie', 'ng-token-auth', 'moveService']);
+var rentaApp = angular.module('rentaApp', ['ngRoute', 
+                                           'ipCookie', 
+                                           'ng-token-auth', 
+                                           'moveService', 
+                                           'patrimonyService',
+                                           'angular-datepicker']);
 
 rentaApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider
         // Home
-        .when('/', {
-            templateUrl: 'pages/home.html',
-            controller: 'mainController' 
-        })
+
         // Login
         .when('/dashboard', {
             templateUrl: 'pages/dashboard.html',
@@ -27,11 +29,16 @@ rentaApp.config(['$routeProvider',
         .when('/moves/:moveId', {
             templateUrl: 'pages/moves/viewMove.html',
             controller: 'movesController'
-        });
+        })
 
-        .when('/moves/new', {
+        .when('/newMove', {
             templateUrl: 'pages/moves/createMove.html',
             controller: 'movesController'
+        })
+
+        .when('/newPatrimony', {
+            templateUrl: 'pages/patrimonies/createPatrimony.html',
+            controller: 'patrimoniesController'
         });
 }]);
 
@@ -49,21 +56,31 @@ rentaApp.controller('mainController', function($scope, $http){
     $scope.message = 'Main controller';
 });
 
-rentaApp.controller('dashboardController', function($scope, Move){
-    $scope.getMoves = function () {
+rentaApp.controller('dashboardController', function($scope, Move, Patrimony){
+    // $scope.getMoves = function () {
         Move.getMoves()
         .success(function (data) {
             // console.log(data);
-            $scope.moves = data;
+            $scope.moves = data.models;
         })
         .error(function (error) {
             // console.log(error);
             $scope.moves = error;
-        });       
-    }
+        });
+
+        Patrimony.getPatrimonies()
+        .success(function (data) {
+            // console.log(data);
+            $scope.patrimonies = data.models;
+        })
+        .error(function (error) {
+            // console.log(error);
+            $scope.patrimonies = error;
+        });
+    // }
 });
 // succes and error recives (data, status, headers, config)
-rentaApp.controller('movesController', function($scope, $http, Move){
+rentaApp.controller('movesController', function($scope, Move){
     $scope.createMove = function () {
         Move.createMove(
                         $scope.newMove.name,
@@ -80,7 +97,25 @@ rentaApp.controller('movesController', function($scope, $http, Move){
     }
 });
 
-rentaApp.controller('loginController', function($scope, $auth, $rootScope){
+rentaApp.controller('patrimoniesController', function($scope, Patrimony) {
+    $scope.createPatrimony = function () {
+        Patrimony.createPatrimony(
+                                  $scope.newPatrimony.name,
+                                  $scope.newPatrimony.value,
+                                  $scope.newPatrimony.kind,
+                                  $scope.newPatrimony.acquisition_date,
+                                  $scope.user.id
+                                 )
+        .success(function (data) {
+            Materialize.toast('Patrimonio registrado correctamente', 4000);
+        })
+        .error(function (data) {
+            Materialize.toast('Patrimonio no registrado', 4000);
+        });
+    }
+});
+
+rentaApp.controller('loginController', function($scope, $auth, $rootScope, $location){
     $scope.handleLoginBtnClick = function() {
       $auth.submitLogin($scope.loginForm)
         .then(function(resp) {
@@ -124,17 +159,23 @@ rentaApp.controller('loginController', function($scope, $auth, $rootScope){
     $rootScope.$on('auth:login-success', function(ev, user) {
         // console.log(user);
         Materialize.toast('Inicio de sesion correcto', 4000);
+        $location.path('/dashboard');
     });
+
     $rootScope.$on('auth:login-error', function(ev, reason) {
         Materialize.toast('Inicio de sesion incorrecto', 4000); 
         console.log('auth failed because', reason.errors[0]);
     });
+
     $rootScope.$on('auth:logout-success', function(ev) {
         Materialize.toast('Cierre de sesion correcto', 4000);
+        $location.path('/login');
     });
+
     $rootScope.$on('auth:logout-error', function(ev, reason) {
         alert('logout failed because ' + reason.errors[0]);
     });
+
     $rootScope.$on('auth:oauth-registration', function(ev, user) {
         alert('new user registered through oauth:' + user.email);
     });
